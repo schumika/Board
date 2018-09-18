@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Sticky
 
 private let reuseIdentifier = "Cell"
 
@@ -14,81 +15,85 @@ class BoardCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        gameData = getData()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        title = "Board"
+        collectionView?.backgroundColor = .white
+        //collectionView?.bounces = false
+        
+        let firstColumnWidth = "MMM".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16
+        let otherColumnWidths = max("Player123".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16, ((collectionView?.bounds.width)! - firstColumnWidth) / CGFloat(gameData?.count ?? 1))
+        
+        if let stickyCollectionViewLayout = collectionViewLayout as? StickyCollectionViewLayout {
+            stickyCollectionViewLayout.calculatedItemSize = { columnIndex in
+                return CGSize(width: columnIndex == 0 ? firstColumnWidth : otherColumnWidths, height: 40.0)
+            }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+    
+    
+    var gameData: [[String: Any]]?
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        guard let firstPlayer = gameData?.first else { return 0 }
+        return (firstPlayer["scores"] as? [Int])?.count ?? 0
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return gameData != nil ? gameData!.count + 1 : 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
+        
         // Configure the cell
-    
+        
+        cell.backgroundColor = UIColor.white
+        cell.layer.borderWidth = 1.0;
+        cell.layer.borderColor = UIColor.darkGray.cgColor
+        
+        if let cell = cell as? BoardCollectionViewCell {
+            
+            if indexPath.section == 0 {
+                
+                cell.backgroundColor = UIColor.lightGray
+                if indexPath.row == 0 {
+                    cell.scoreLabel.text = "#"
+                } else {
+                    if let playerData = gameData?[indexPath.row - 1] {
+                        cell.scoreLabel.text = playerData["name"] as? String ?? ""
+                    }
+                }
+            } else {
+                if indexPath.row == 0 {
+                    cell.scoreLabel.text = "\(indexPath.section)"
+                    cell.backgroundColor = UIColor.lightGray
+                } else {
+                    if let playerData = gameData?[indexPath.row - 1] {
+                        if let scores = playerData["scores"] as? [Int] {
+                            cell.scoreLabel.text = "\(scores[indexPath.section])"
+                        }
+                    }
+                }
+                
+            }
+        }
+        
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    private func getData() -> [[String: Any]] {
+        return [["name": "Player1", "scores": [200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000]] as [String : Any],
+                ["name": "Player2", "scores": [400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200]] as [String : Any],
+                ["name": "Player3", "scores": [500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400]] as [String : Any],
+                ["name": "Player4", "scores": [600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500]] as [String : Any],
+                ["name": "Player5", "scores": [40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600]] as [String : Any],
+                ["name": "Player6", "scores": [50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40]] as [String : Any],
+                ["name": "Player7", "scores": [2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50]] as [String : Any]]
     }
-    */
-
 }

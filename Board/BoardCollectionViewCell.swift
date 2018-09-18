@@ -6,4 +6,13 @@
 //  Copyright © 2018 alarm.com. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class BoardCollectionViewCell : UICollectionViewCell {
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    public func setScoreValue(score: String) {
+        scoreLabel.text = score
+    }
+    
+}

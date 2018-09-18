@@ -8,20 +8,58 @@
 
 /* Begin PBXBuildFile section */
 		27073FAD20ECE664008DFD59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27073FAC20ECE664008DFD59 /* AppDelegate.swift */; };
-		27073FAF20ECE664008DFD59 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27073FAE20ECE664008DFD59 /* ViewController.swift */; };
 		27073FB220ECE664008DFD59 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27073FB020ECE664008DFD59 /* Main.storyboard */; };
 		27073FB420ECE665008DFD59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27073FB320ECE665008DFD59 /* Assets.xcassets */; };
 		27073FB720ECE665008DFD59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27073FB520ECE665008DFD59 /* LaunchScreen.storyboard */; };
+		27073FCA20ECE69F008DFD59 /* Sticky.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27073FC920ECE69A008DFD59 /* Sticky.framework */; };
+		27073FCB20ECE69F008DFD59 /* Sticky.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27073FC920ECE69A008DFD59 /* Sticky.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2722F31A214678EF00432B72 /* BoardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2722F319214678EF00432B72 /* BoardCollectionViewCell.swift */; };
+		2770B959214BB11200853CB0 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2770B958214BB11200853CB0 /* BoardViewController.swift */; };
+		27AD13BF20EE5F570074511A /* BoardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AD13BE20EE5F570074511A /* BoardCollectionViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		27073FC820ECE69A008DFD59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27073FC420ECE69A008DFD59 /* Sticky.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 27073F9120ECE4C7008DFD59;
+			remoteInfo = Sticky;
+		};
+		27073FCC20ECE69F008DFD59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27073FC420ECE69A008DFD59 /* Sticky.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 27073F9020ECE4C7008DFD59;
+			remoteInfo = Sticky;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		27073FCE20ECE69F008DFD59 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				27073FCB20ECE69F008DFD59 /* Sticky.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		27073FA920ECE664008DFD59 /* Board.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Board.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27073FAC20ECE664008DFD59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		27073FAE20ECE664008DFD59 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		27073FB120ECE664008DFD59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		27073FB320ECE665008DFD59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27073FB620ECE665008DFD59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27073FB820ECE665008DFD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27073FC420ECE69A008DFD59 /* Sticky.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sticky.xcodeproj; path = ../Sticky/Sticky.xcodeproj; sourceTree = "<group>"; };
+		2722F319214678EF00432B72 /* BoardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCollectionViewCell.swift; sourceTree = "<group>"; };
+		2770B958214BB11200853CB0 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
+		27AD13BE20EE5F570074511A /* BoardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27073FCA20ECE69F008DFD59 /* Sticky.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +77,7 @@
 		27073FA020ECE664008DFD59 = {
 			isa = PBXGroup;
 			children = (
+				27073FC420ECE69A008DFD59 /* Sticky.xcodeproj */,
 				27073FAB20ECE664008DFD59 /* Board */,
 				27073FAA20ECE664008DFD59 /* Products */,
 			);
@@ -55,13 +95,23 @@
 			isa = PBXGroup;
 			children = (
 				27073FAC20ECE664008DFD59 /* AppDelegate.swift */,
-				27073FAE20ECE664008DFD59 /* ViewController.swift */,
+				27AD13BE20EE5F570074511A /* BoardCollectionViewController.swift */,
+				2770B958214BB11200853CB0 /* BoardViewController.swift */,
+				2722F319214678EF00432B72 /* BoardCollectionViewCell.swift */,
 				27073FB020ECE664008DFD59 /* Main.storyboard */,
 				27073FB320ECE665008DFD59 /* Assets.xcassets */,
 				27073FB520ECE665008DFD59 /* LaunchScreen.storyboard */,
 				27073FB820ECE665008DFD59 /* Info.plist */,
 			);
 			path = Board;
+			sourceTree = "<group>";
+		};
+		27073FC520ECE69A008DFD59 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27073FC920ECE69A008DFD59 /* Sticky.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,10 +124,12 @@
 				27073FA520ECE664008DFD59 /* Sources */,
 				27073FA620ECE664008DFD59 /* Frameworks */,
 				27073FA720ECE664008DFD59 /* Resources */,
+				27073FCE20ECE69F008DFD59 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				27073FCD20ECE69F008DFD59 /* PBXTargetDependency */,
 			);
 			name = Board;
 			productName = Board;
@@ -110,12 +162,28 @@
 			mainGroup = 27073FA020ECE664008DFD59;
 			productRefGroup = 27073FAA20ECE664008DFD59 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 27073FC520ECE69A008DFD59 /* Products */;
+					ProjectRef = 27073FC420ECE69A008DFD59 /* Sticky.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				27073FA820ECE664008DFD59 /* Board */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		27073FC920ECE69A008DFD59 /* Sticky.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Sticky.framework;
+			remoteRef = 27073FC820ECE69A008DFD59 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		27073FA720ECE664008DFD59 /* Resources */ = {
@@ -135,12 +203,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27073FAF20ECE664008DFD59 /* ViewController.swift in Sources */,
 				27073FAD20ECE664008DFD59 /* AppDelegate.swift in Sources */,
+				27AD13BF20EE5F570074511A /* BoardCollectionViewController.swift in Sources */,
+				2722F31A214678EF00432B72 /* BoardCollectionViewCell.swift in Sources */,
+				2770B959214BB11200853CB0 /* BoardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		27073FCD20ECE69F008DFD59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sticky;
+			targetProxy = 27073FCC20ECE69F008DFD59 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		27073FB020ECE664008DFD59 /* Main.storyboard */ = {
@@ -279,6 +357,7 @@
 		27073FBC20ECE665008DFD59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Board/Info.plist;
@@ -296,6 +375,7 @@
 		27073FBD20ECE665008DFD59 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Board/Info.plist;

@@ -10,12 +10,20 @@ import UIKit
 
 class BoardCollectionView: UICollectionView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        // For use in code
+        super.init(frame: frame, collectionViewLayout: layout)
+        setUpView()
     }
-    */
+    
+    public required init?(coder aDecoder: NSCoder) {
+        // For use in Interface Builder
+        super.init(coder: aDecoder)
+        setUpView()
+    }
+    
+    private func setUpView() {
+        self.backgroundColor = UIColor.blue
+    }
 
 }
