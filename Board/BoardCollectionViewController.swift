@@ -15,15 +15,12 @@ class BoardCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        gameData = getData()
 
-        title = "Board"
         collectionView?.backgroundColor = .white
         //collectionView?.bounces = false
         
         let firstColumnWidth = "MMM".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16
-        let otherColumnWidths = max("Player123".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16, ((collectionView?.bounds.width)! - firstColumnWidth) / CGFloat(gameData?.count ?? 1))
+        let otherColumnWidths = max("Player123".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16, ((collectionView?.bounds.width)! - firstColumnWidth) / CGFloat(game.players?.count ?? 1))
         
         if let stickyCollectionViewLayout = collectionViewLayout as? StickyCollectionViewLayout {
             stickyCollectionViewLayout.calculatedItemSize = { columnIndex in
@@ -33,19 +30,23 @@ class BoardCollectionViewController: UICollectionViewController {
     }
     
     
-    
-    var gameData: [[String: Any]]?
+
+    var game: Game = Game(name: "No name") {
+        didSet {
+            title = game.name
+        }
+    }
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let firstPlayer = gameData?.first else { return 0 }
-        return (firstPlayer["scores"] as? [Int])?.count ?? 0
+        guard let firstPlayer = game.players?.first else { return 0 }
+        return firstPlayer.scores?.count ?? 0
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gameData != nil ? gameData!.count + 1 : 0
+        if let players = game.players { return players.count + 1} else { return 0 }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -65,8 +66,8 @@ class BoardCollectionViewController: UICollectionViewController {
                 if indexPath.row == 0 {
                     cell.scoreLabel.text = "#"
                 } else {
-                    if let playerData = gameData?[indexPath.row - 1] {
-                        cell.scoreLabel.text = playerData["name"] as? String ?? ""
+                    if let playerData = game.players?[indexPath.row - 1] {
+                        cell.scoreLabel.text = playerData.name
                     }
                 }
             } else {
@@ -74,8 +75,8 @@ class BoardCollectionViewController: UICollectionViewController {
                     cell.scoreLabel.text = "\(indexPath.section)"
                     cell.backgroundColor = UIColor.lightGray
                 } else {
-                    if let playerData = gameData?[indexPath.row - 1] {
-                        if let scores = playerData["scores"] as? [Int] {
+                    if let playerData = game.players?[indexPath.row - 1] {
+                        if let scores = playerData.scores {
                             cell.scoreLabel.text = "\(scores[indexPath.section])"
                         }
                     }
@@ -87,13 +88,13 @@ class BoardCollectionViewController: UICollectionViewController {
         return cell
     }
     
-    private func getData() -> [[String: Any]] {
-        return [["name": "Player1", "scores": [200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000]] as [String : Any],
-                ["name": "Player2", "scores": [400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200]] as [String : Any],
-                ["name": "Player3", "scores": [500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400]] as [String : Any],
-                ["name": "Player4", "scores": [600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500]] as [String : Any],
-                ["name": "Player5", "scores": [40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600]] as [String : Any],
-                ["name": "Player6", "scores": [50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40]] as [String : Any],
-                ["name": "Player7", "scores": [2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50]] as [String : Any]]
-    }
+//    private func getData() -> [[String: Any]] {
+//        return [["name": "Player1", "scores": [200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000]] as [String : Any],
+//                ["name": "Player2", "scores": [400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200]] as [String : Any],
+//                ["name": "Player3", "scores": [500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400]] as [String : Any],
+//                ["name": "Player4", "scores": [600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500]] as [String : Any],
+//                ["name": "Player5", "scores": [40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600]] as [String : Any],
+//                ["name": "Player6", "scores": [50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40]] as [String : Any],
+//                ["name": "Player7", "scores": [2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50]] as [String : Any]]
+//    }
 }
