@@ -43,7 +43,7 @@ class GamesTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showGameSegue" {
-            if let boardVC = segue.destination as? BoardCollectionViewController {
+            if let navCtrl = segue.destination as? UINavigationController, let boardVC = navCtrl.topViewController as? BoardCollectionViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     boardVC.game = games[indexPath.row]
                 }

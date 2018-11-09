@@ -16,6 +16,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        guard let splitViewController = self.window!.rootViewController as? UISplitViewController else { return true }
+        splitViewController.preferredDisplayMode = .allVisible
+        
+        // if there are games, then open to the first one
+        if let firstGame = GamesManager().games.first {
+            if let nc = splitViewController.viewControllers.last as? UINavigationController {
+                //nc.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+                
+                if let boardViewController = nc.topViewController as? BoardCollectionViewController {
+                    boardViewController.game = firstGame
+                }
+            }
+        } else {
+            // if there are no games, we want to open the games screen
+        }
+        
+        
+        
+        //guard let boardViewController = 
+        
         return true
     }
 

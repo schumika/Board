@@ -12,7 +12,8 @@ import Foundation
 class GamesManager {
     
     init() {
-        games = [GamesManager.dummyGame(), GamesManager.dummyGame2(), GamesManager.dummyGame3()]
+        //games = [GamesManager.dummyGame(), GamesManager.dummyGame2(), GamesManager.dummyGame3()]
+        games = [Game]()
     }
     
     public var games: [Game]
