@@ -8,16 +8,16 @@
 
 import UIKit
 
-class GamesTableViewController: UITableViewController {
+class GamesTableViewController: UITableViewController, UISplitViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         games = GamesManager().games
         
-//        games.append(dummyGame())
-//        games.append(dummyGame2())
-//        games.append(dummyGame3())
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.splitViewController.delegate = self
+        }
     }
     
     var games = [Game]()
@@ -50,6 +50,10 @@ class GamesTableViewController: UITableViewController {
 
             }
         }
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return games.count == 0
     }
     
 }

@@ -28,8 +28,6 @@ class BoardCollectionViewController: UICollectionViewController {
             }
         }
     }
-    
-    
 
     var game: Game = Game(name: "No name") {
         didSet {

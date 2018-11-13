@@ -35,7 +35,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Games" id="jri-qD-650"/>
                     <connections>
-                        <segue destination="DtL-OU-3zJ" kind="show" identifier="showGameSegue" id="rKC-st-by3"/>
+                        <segue destination="DtL-OU-3zJ" kind="showDetail" identifier="showGameSegue" id="rKC-st-by3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgF-oZ-pLs" userLabel="First Responder" sceneMemberID="firstResponder"/>

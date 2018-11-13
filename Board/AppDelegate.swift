@@ -12,12 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var splitViewController: UISplitViewController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        guard let splitViewController = self.window!.rootViewController as? UISplitViewController else { return true }
+        splitViewController = self.window!.rootViewController as? UISplitViewController
         splitViewController.preferredDisplayMode = .allVisible
         
         // if there are games, then open to the first one
@@ -29,13 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     boardViewController.game = firstGame
                 }
             }
-        } else {
-            // if there are no games, we want to open the games screen
         }
-        
-        
-        
-        //guard let boardViewController = 
         
         return true
     }

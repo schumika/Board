@@ -24,14 +24,14 @@ class GamesManager {
 }
 
 extension GamesManager {
-    private static func dummyGame() -> Game {
+    public static func dummyGame() -> Game {
         let game = Game(name: "Uno")
         game.addPlayer(player: Player(name: "Player1", scores: [200, 400, 500, 600, 40, 50, 2000, 200, 400]))
         game.addPlayer(player: Player(name: "Player2", scores: [400, 500, 600, 40, 50, 2000, 200, 400, 500]))
         return game
     }
     
-    private static func dummyGame2() -> Game {
+    public static func dummyGame2() -> Game {
         let game = Game(name: "Remi")
         game.addPlayer(player: Player(name: "Player1", scores: [200, 400]))
         game.addPlayer(player: Player(name: "Player2", scores: [400, 500]))
@@ -39,7 +39,7 @@ extension GamesManager {
         return game
     }
     
-    private static func dummyGame3() -> Game {
+    public static func dummyGame3() -> Game {
         let game = Game(name: "Rent")
         game.addPlayer(player: Player(name: "Player1", scores: [200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000]))
         game.addPlayer(player: Player(name: "Player2", scores: [400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200]))
