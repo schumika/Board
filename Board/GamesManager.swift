@@ -12,8 +12,8 @@ import Foundation
 class GamesManager {
     
     init() {
-        //games = [GamesManager.dummyGame(), GamesManager.dummyGame2(), GamesManager.dummyGame3()]
-        games = [Game]()
+        games = [GamesManager.dummyGame(), GamesManager.dummyGame2(), GamesManager.dummyGame3()]
+        //games = [Game]()
     }
     
     public var games: [Game]
@@ -21,13 +21,23 @@ class GamesManager {
     public func addGame(game: Game) {
         games.append(game)
     }
+    
+    public func deleteGame(at index: Int) {
+        games.remove(at: index)
+    }
+    
+    public func addPlayer(player: Player, game: Game) {
+        game.addPlayer(player: player)
+    }
 }
 
 extension GamesManager {
     public static func dummyGame() -> Game {
         let game = Game(name: "Uno")
-        game.addPlayer(player: Player(name: "Player1", scores: [200, 400, 500, 600, 40, 50, 2000, 200, 400]))
-        game.addPlayer(player: Player(name: "Player2", scores: [400, 500, 600, 40, 50, 2000, 200, 400, 500]))
+//        game.addPlayer(player: Player(name: "Player1", scores: [200, 400, 500, 600, 40, 50, 2000, 200, 400]))
+//        game.addPlayer(player: Player(name: "Player2", scores: [400, 500, 600, 40, 50, 2000, 200, 400, 500]))
+        game.addPlayer(player: Player(name: "Player1"))
+        game.addPlayer(player: Player(name: "Player2"))
         return game
     }
     

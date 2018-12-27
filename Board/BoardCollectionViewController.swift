@@ -19,14 +19,7 @@ class BoardCollectionViewController: UICollectionViewController {
         collectionView?.backgroundColor = .white
         //collectionView?.bounces = false
         
-        let firstColumnWidth = "MMM".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16
-        let otherColumnWidths = max("Player123".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16, ((collectionView?.bounds.width)! - firstColumnWidth) / CGFloat(game.players?.count ?? 1))
-        
-        if let stickyCollectionViewLayout = collectionViewLayout as? StickyCollectionViewLayout {
-            stickyCollectionViewLayout.calculatedItemSize = { columnIndex in
-                return CGSize(width: columnIndex == 0 ? firstColumnWidth : otherColumnWidths, height: 40.0)
-            }
-        }
+        updateCollectionViewLayout()
     }
 
     var game: Game = Game(name: "No name") {
@@ -34,16 +27,29 @@ class BoardCollectionViewController: UICollectionViewController {
             title = game.name
         }
     }
+    
+    func updateCollectionViewLayout() {
+        let firstColumnWidth = "MMM".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16
+        let otherColumnWidths = max("Player123".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16, ((collectionView?.bounds.width)! - firstColumnWidth) / CGFloat(game.players?.count ?? 1))
+        
+        if let stickyCollectionViewLayout = collectionViewLayout as? StickyCollectionViewLayout {
+            stickyCollectionViewLayout.calculatedItemSize = { columnIndex, rowIndex in
+                return CGSize(width: columnIndex == 0 ? firstColumnWidth : otherColumnWidths, height: rowIndex == 0 ? 80 : 40.0)
+            }
+        }
+    }
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // Number of scores for each player
         guard let firstPlayer = game.players?.first else { return 0 }
-        return firstPlayer.scores?.count ?? 0
+        return (firstPlayer.scores?.count ?? 0) + 1 // todo: rethink!!
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // Number of players
         if let players = game.players { return players.count + 1} else { return 0 }
     }
 
@@ -75,7 +81,7 @@ class BoardCollectionViewController: UICollectionViewController {
                 } else {
                     if let playerData = game.players?[indexPath.row - 1] {
                         if let scores = playerData.scores {
-                            cell.scoreLabel.text = "\(scores[indexPath.section])"
+                            cell.scoreLabel.text = "\(scores[indexPath.section - 1])"
                         }
                     }
                 }
@@ -84,6 +90,22 @@ class BoardCollectionViewController: UICollectionViewController {
         }
         
         return cell
+    }
+    @IBAction func addClicked(_ sender: UIBarButtonItem) {
+        // Add button
+        
+        let alertViewController = UIAlertController(title: "Add player", message: "Enter player name", preferredStyle: .alert)
+        alertViewController.addTextField { textField in
+            textField.placeholder = "Player name"
+        }
+        alertViewController.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] (alertAction) in
+            if let textField = alertViewController.textFields?.first {
+                self?.game.addPlayer(player: Player(name: textField.text ?? "Unnamed player"))
+                self?.collectionView?.reloadData()
+                self?.updateCollectionViewLayout()
+            }
+        }))
+        present(alertViewController, animated: true, completion: nil)
     }
     
 //    private func getData() -> [[String: Any]] {
