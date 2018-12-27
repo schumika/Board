@@ -12,6 +12,12 @@ import Sticky
 private let reuseIdentifier = "Cell"
 
 class BoardCollectionViewController: UICollectionViewController {
+    
+    var game: Game = Game(name: "No name") {
+        didSet {
+            title = game.name
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,38 +27,40 @@ class BoardCollectionViewController: UICollectionViewController {
         
         updateCollectionViewLayout()
     }
-
-    var game: Game = Game(name: "No name") {
-        didSet {
-            title = game.name
-        }
-    }
     
-    func updateCollectionViewLayout() {
-        let firstColumnWidth = "MMM".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16
-        let otherColumnWidths = max("Player123".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16, ((collectionView?.bounds.width)! - firstColumnWidth) / CGFloat(game.players?.count ?? 1))
+    @IBAction func addClicked(_ sender: UIBarButtonItem) {
+        // Add button
         
-        if let stickyCollectionViewLayout = collectionViewLayout as? StickyCollectionViewLayout {
-            stickyCollectionViewLayout.calculatedItemSize = { columnIndex, rowIndex in
-                return CGSize(width: columnIndex == 0 ? firstColumnWidth : otherColumnWidths, height: rowIndex == 0 ? 80 : 40.0)
-            }
+        let alertViewController = UIAlertController(title: "Add player", message: "Enter player name", preferredStyle: .alert)
+        alertViewController.addTextField { textField in
+            textField.placeholder = "Player name"
         }
+        alertViewController.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] (alertAction) in
+            if let textField = alertViewController.textFields?.first {
+                self?.game.addPlayer(player: Player(name: textField.text ?? "Unnamed player"))
+                self?.collectionView?.reloadData()
+                self?.updateCollectionViewLayout()
+            }
+        }))
+        present(alertViewController, animated: true, completion: nil)
     }
+}
 
-    // MARK: UICollectionViewDataSource
-
+// MARK: UICollectionViewDataSource
+extension BoardCollectionViewController {
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // Number of scores for each player
         guard let firstPlayer = game.players?.first else { return 0 }
         return (firstPlayer.scores?.count ?? 0) + 1 // todo: rethink!!
     }
-
-
+    
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // Number of players
         if let players = game.players { return players.count + 1} else { return 0 }
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
@@ -91,30 +99,40 @@ class BoardCollectionViewController: UICollectionViewController {
         
         return cell
     }
-    @IBAction func addClicked(_ sender: UIBarButtonItem) {
-        // Add button
-        
-        let alertViewController = UIAlertController(title: "Add player", message: "Enter player name", preferredStyle: .alert)
-        alertViewController.addTextField { textField in
-            textField.placeholder = "Player name"
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section != 0 && indexPath.row != 0 {
+            editScore(for: game.players![indexPath.row - 1], at: (indexPath.section - 1))
         }
-        alertViewController.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] (alertAction) in
+    }
+}
+
+extension BoardCollectionViewController {
+    func updateCollectionViewLayout() {
+        let firstColumnWidth = "MMM".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16
+        let otherColumnWidths = max("Player123".size(withAttributes: [.font: UIFont.systemFont(ofSize: 14.0)]).width + 16, ((collectionView?.bounds.width)! - firstColumnWidth) / CGFloat(game.players?.count ?? 1))
+        
+        if let stickyCollectionViewLayout = collectionViewLayout as? StickyCollectionViewLayout {
+            stickyCollectionViewLayout.calculatedItemSize = { columnIndex, rowIndex in
+                return CGSize(width: columnIndex == 0 ? firstColumnWidth : otherColumnWidths, height: rowIndex == 0 ? 80 : 40.0)
+            }
+        }
+    }
+    
+    func editScore(for player: Player, at index: Int) {
+        let alertViewController = UIAlertController(title: "Edit score", message: "", preferredStyle: .alert)
+        alertViewController.addTextField { textField in
+            textField.placeholder = "0"
+            textField.text = "\(player.scores![index])"
+        }
+        alertViewController.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak self] (alertAction) in
             if let textField = alertViewController.textFields?.first {
-                self?.game.addPlayer(player: Player(name: textField.text ?? "Unnamed player"))
+                let score = Int(textField.text ?? "0") ?? 0
+                player.updateScore(at: index, with: score)
                 self?.collectionView?.reloadData()
-                self?.updateCollectionViewLayout()
             }
         }))
         present(alertViewController, animated: true, completion: nil)
+        
     }
-    
-//    private func getData() -> [[String: Any]] {
-//        return [["name": "Player1", "scores": [200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000]] as [String : Any],
-//                ["name": "Player2", "scores": [400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200]] as [String : Any],
-//                ["name": "Player3", "scores": [500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400]] as [String : Any],
-//                ["name": "Player4", "scores": [600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500]] as [String : Any],
-//                ["name": "Player5", "scores": [40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600]] as [String : Any],
-//                ["name": "Player6", "scores": [50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40]] as [String : Any],
-//                ["name": "Player7", "scores": [2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50, 2000, 200, 400, 500, 600, 40, 50]] as [String : Any]]
-//    }
 }

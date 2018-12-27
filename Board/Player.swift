@@ -25,4 +25,8 @@ class Player {
     public func addScore(score: Int) {
         self.scores?.append(score)
     }
+    
+    public func updateScore(at index: Int, with newValue: Int) {
+        self.scores?[index] = newValue
+    }
 }
