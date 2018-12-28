@@ -34,8 +34,7 @@ class GamesManager {
 extension GamesManager {
     public static func dummyGame() -> Game {
         let game = Game(name: "Uno")
-//        game.addPlayer(player: Player(name: "Player1", scores: [200, 400, 500, 600, 40, 50, 2000, 200, 400]))
-//        game.addPlayer(player: Player(name: "Player2", scores: [400, 500, 600, 40, 50, 2000, 200, 400, 500]))
+        
         game.addPlayer(player: Player(name: "Player1"))
         game.addPlayer(player: Player(name: "Player2"))
         return game

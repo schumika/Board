@@ -26,4 +26,11 @@ class Game {
             player.addScore(score: 0)
         }
     }
+    
+    public func addRound() {
+        guard let players = players else { return }
+        for player in players {
+            player.addScore(score: 0)
+        }
+    }
 }

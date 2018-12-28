@@ -77,7 +77,7 @@ extension BoardCollectionViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: roundReuseIdentifier, for: indexPath)
             
             if let cell = cell as? RoundNumberCollectionViewCell {
-                cell.setRoundNumberValue(roundNumber: indexPath.section == 0 ? "#" :  "\(roundNo)")
+                cell.setRoundNumberValue(roundNumber: indexPath.section == 0 ? "+" :  "\(roundNo)")
             }
             
             return cell
@@ -101,7 +101,7 @@ extension BoardCollectionViewController {
             if let cell = cell as? BoardCollectionViewCell {
                 if let playerData = game.players?[indexPath.row - 1] {
                     if let scores = playerData.scores {
-                        cell.setScoreValue(score: "\(scores[indexPath.section - 1])")
+                        cell.setScoreValue(score: "\(scores[roundNo - 1])")
                     }
                 }
             }
@@ -111,8 +111,12 @@ extension BoardCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section != 0 && indexPath.row != 0 {
-            editScore(for: game.players![indexPath.row - 1], at: (indexPath.section - 1))
+        if indexPath.section == 0 && indexPath.row == 0 {
+            game.addRound()
+            collectionView.reloadData()
+        } else if indexPath.section != 0 && indexPath.row != 0 {
+            let roundNo = indexPath.section == 0 ? -1 : (collectionView.numberOfSections - indexPath.section)
+            editScore(for: game.players![indexPath.row - 1], at: (roundNo - 1))
         }
     }
 }
