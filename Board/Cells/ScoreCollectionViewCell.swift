@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BoardCollectionViewCell : UICollectionViewCell {
+class ScoreCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var scoreLabel: UILabel!
     
     public func setScoreValue(score: String) {

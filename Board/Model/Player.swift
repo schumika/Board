@@ -22,7 +22,16 @@ class Player {
         self.scores = scores
     }
     
-    public func addScore(score: Int) {
+    public func add(score: Int) {
         self.scores?.append(score)
+    }
+    
+    public func updateScore(at index: Int, with newValue: Int) {
+        self.scores?[index] = newValue
+    }
+    
+    public func totalScore() -> Int {
+        guard let scores = scores else { return 0 }
+        return scores.reduce(0) { $0 + $1 }
     }
 }

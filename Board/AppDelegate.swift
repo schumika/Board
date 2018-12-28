@@ -12,10 +12,25 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var splitViewController: UISplitViewController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        splitViewController = self.window!.rootViewController as? UISplitViewController
+        splitViewController.preferredDisplayMode = .allVisible
+        
+        // if there are games, then open to the first one
+        if let firstGame = GamesManager().games.first {
+            if let nc = splitViewController.viewControllers.last as? UINavigationController {
+                //nc.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+                
+                if let boardViewController = nc.topViewController as? BoardCollectionViewController {
+                    boardViewController.game = firstGame
+                }
+            }
+        }
+        
         return true
     }
 
