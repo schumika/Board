@@ -45,7 +45,7 @@ class BoardCollectionViewController: UICollectionViewController {
         alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alertViewController.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] (alertAction) in
             if let textField = alertViewController.textFields?.first {
-                self?.game.addPlayer(player: Player(name: textField.text ?? "Unnamed player"))
+                self?.game.add(player: Player(name: textField.text ?? "Unnamed player"))
                 self?.collectionView?.reloadData()
                 self?.updateCollectionViewLayout()
             }
@@ -65,7 +65,7 @@ class BoardCollectionViewController: UICollectionViewController {
                     case .done:
                         players[index.row - 1].name = playerViewController.player.name
                     case .delete:
-                        self?.game.deletePlayer(player: players[index.row - 1])
+                        self?.game.delete(player: players[index.row - 1])
                     }
                     
                     playerViewController.dismiss(animated: true, completion: {
@@ -142,7 +142,7 @@ extension BoardCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 0 {
-            game.addRound()
+            game.addEmptyRound()
             collectionView.reloadData()
         } else if indexPath.section != 0 && indexPath.row != 0 {
             let roundNo = indexPath.section == 0 ? -1 : (collectionView.numberOfSections - indexPath.section)

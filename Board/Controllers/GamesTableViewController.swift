@@ -53,7 +53,7 @@ class GamesTableViewController: UITableViewController, UISplitViewControllerDele
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.beginUpdates()
-            gamesManager.deleteGame(at: indexPath.row)
+            gamesManager.delete(at: indexPath.row)
             // todo: ????
             games = gamesManager.games
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -83,7 +83,7 @@ class GamesTableViewController: UITableViewController, UISplitViewControllerDele
         }
         alertViewController.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] (alertAction) in
             if let textField = alertViewController.textFields?.first {
-                self?.gamesManager.addGame(game: Game(name: textField.text ?? "Unnamed game"))
+                self?.gamesManager.add(game: Game(name: textField.text ?? "Unnamed game"))
                 self?.reloadData()
             }
         }))

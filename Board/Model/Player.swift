@@ -22,7 +22,7 @@ class Player {
         self.scores = scores
     }
     
-    public func addScore(score: Int) {
+    public func add(score: Int) {
         self.scores?.append(score)
     }
     

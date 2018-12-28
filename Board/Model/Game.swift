@@ -17,31 +17,31 @@ class Game {
         players = [Player]()
     }
     
-    public func addPlayer(player: Player) {
-        addPlayer(player: player, fillScores: true)
+    public func add(player: Player) {
+        add(player: player, fillScores: true)
     }
     
-    public func addPlayer(player: Player, fillScores: Bool) {
+    public func add(player: Player, fillScores: Bool) {
         players?.append(player)
         
         if fillScores {
             guard players?.count ?? 0 > 1, let firstPlayer = players?.first  else { return }
             let scoresCount = firstPlayer.scores?.count
             for _ in 0 ..< (scoresCount ?? 0) {
-                player.addScore(score: 0)
+                player.add(score: 0)
             }
         }
         
     }
     
-    public func addRound() {
+    public func addEmptyRound() {
         guard let players = players else { return }
         for player in players {
-            player.addScore(score: 0)
+            player.add(score: 0)
         }
     }
     
-    public func deletePlayer(player: Player) {
+    public func delete(player: Player) {
         if let index = players?.index(where: {$0 === player}) {
             players?.remove(at: index)
         }
