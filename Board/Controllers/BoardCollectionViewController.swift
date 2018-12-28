@@ -9,9 +9,16 @@
 import UIKit
 import Sticky
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "ScoreCell"
+private let headerReuseIdentifier = "HeaderCell"
+private let roundReuseIdentifier = "RoundCell"
 
 class BoardCollectionViewController: UICollectionViewController {
+    
+    private struct CollectionViewDimensions {
+        static let headerHeight: CGFloat = 80.0
+        static let scoreHeight: CGFloat = 40.0
+    }
     
     var game: Game = Game(name: "No name") {
         didSet {
@@ -62,42 +69,45 @@ extension BoardCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
-        // Configure the cell
+        let roundNo = indexPath.section == 0 ? -1 : (collectionView.numberOfSections - indexPath.section)
         
-        cell.backgroundColor = UIColor.white
-        cell.layer.borderWidth = 1.0;
-        cell.layer.borderColor = UIColor.darkGray.cgColor
-        
-        if let cell = cell as? BoardCollectionViewCell {
+        if indexPath.row == 0 {
+            // Configure the round # cell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: roundReuseIdentifier, for: indexPath)
             
-            if indexPath.section == 0 {
-                
-                cell.backgroundColor = UIColor.lightGray
-                if indexPath.row == 0 {
-                    cell.scoreLabel.text = "#"
-                } else {
-                    if let playerData = game.players?[indexPath.row - 1] {
-                        cell.scoreLabel.text = playerData.name
-                    }
-                }
-            } else {
-                if indexPath.row == 0 {
-                    cell.scoreLabel.text = "\(indexPath.section)"
-                    cell.backgroundColor = UIColor.lightGray
-                } else {
-                    if let playerData = game.players?[indexPath.row - 1] {
-                        if let scores = playerData.scores {
-                            cell.scoreLabel.text = "\(scores[indexPath.section - 1])"
-                        }
-                    }
-                }
-                
+            if let cell = cell as? RoundNumberCollectionViewCell {
+                cell.setRoundNumberValue(roundNumber: indexPath.section == 0 ? "#" :  "\(roundNo)")
             }
+            
+            return cell
+            
+        } else if indexPath.section == 0 {
+            // Configure the header cell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: headerReuseIdentifier, for: indexPath)
+            
+            if let cell = cell as? BoardHeaderCollectionViewCell {
+                if let playerData = game.players?[indexPath.row - 1] {
+                    cell.setPlayerName(name: playerData.name)
+                    cell.setTotalScore(score: playerData.totalScore())
+                }
+            }
+            
+            return cell
+        } else {
+            // Configure the score cell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+            
+            if let cell = cell as? BoardCollectionViewCell {
+                if let playerData = game.players?[indexPath.row - 1] {
+                    if let scores = playerData.scores {
+                        cell.setScoreValue(score: "\(scores[indexPath.section - 1])")
+                    }
+                }
+            }
+            
+            return cell
         }
-        
-        return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -114,7 +124,7 @@ extension BoardCollectionViewController {
         
         if let stickyCollectionViewLayout = collectionViewLayout as? StickyCollectionViewLayout {
             stickyCollectionViewLayout.calculatedItemSize = { columnIndex, rowIndex in
-                return CGSize(width: columnIndex == 0 ? firstColumnWidth : otherColumnWidths, height: rowIndex == 0 ? 80 : 40.0)
+                return CGSize(width: columnIndex == 0 ? firstColumnWidth : otherColumnWidths, height: rowIndex == 0 ? CollectionViewDimensions.headerHeight : CollectionViewDimensions.scoreHeight)
             }
         }
     }
