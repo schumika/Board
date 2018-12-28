@@ -7,6 +7,8 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -97,7 +99,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="30"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="ScoreCell" id="Cwe-7L-Bss" customClass="BoardCollectionViewCell" customModule="Board" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="ScoreCell" id="Cwe-7L-Bss" customClass="ScoreCollectionViewCell" customModule="Board" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -209,6 +211,7 @@
                                 <connections>
                                     <outlet property="playerNameLabel" destination="86M-uk-b29" id="UrR-Cp-hUZ"/>
                                     <outlet property="totalPlayerScore" destination="Ia7-pG-p6P" id="3Bl-a6-efr"/>
+                                    <segue destination="Cq6-3c-Sz1" kind="presentation" identifier="presentPlayer" id="AZn-9O-KzH"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -230,6 +233,80 @@
             </objects>
             <point key="canvasLocation" x="1668" y="216.34182908545728"/>
         </scene>
+        <!--Edit player-->
+        <scene sceneID="jjg-6u-nGm">
+            <objects>
+                <viewController id="3qH-j3-ECv" customClass="EditPlayerViewController" customModule="Board" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lpr-8q-EvY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="l6p-lr-QuZ">
+                                <rect key="frame" x="8" y="72" width="359" height="68"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bwg-Qw-1ty">
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gu-0c-JPA">
+                                                <rect key="frame" x="0.0" y="0.0" width="98.5" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O0l-jF-JTZ">
+                                                <rect key="frame" x="106.5" y="0.0" width="252.5" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLd-fj-gdE">
+                                        <rect key="frame" x="0.0" y="38" width="359" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="deleteButtonClicked:" destination="3qH-j3-ECv" eventType="touchUpInside" id="G2h-nJ-FKx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="l6p-lr-QuZ" firstAttribute="top" secondItem="7TQ-jY-F2v" secondAttribute="top" constant="8" id="1RJ-hb-1Pv"/>
+                            <constraint firstItem="l6p-lr-QuZ" firstAttribute="leading" secondItem="7TQ-jY-F2v" secondAttribute="leading" constant="8" id="Z8b-Mq-NRL"/>
+                            <constraint firstItem="7TQ-jY-F2v" firstAttribute="trailing" secondItem="l6p-lr-QuZ" secondAttribute="trailing" constant="8" id="qV4-O6-Mxm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7TQ-jY-F2v"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Edit player" id="H6S-hR-INI">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="863-wi-XZ6">
+                            <connections>
+                                <action selector="cancelClicked:" destination="3qH-j3-ECv" id="405-FE-gvn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="n2K-Ak-qBo">
+                            <connections>
+                                <action selector="doneClicked:" destination="3qH-j3-ECv" id="D2k-LO-7Ua"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nameTextField" destination="O0l-jF-JTZ" id="gdX-Xz-ae2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SgI-t9-UZg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3405.5999999999999" y="215.44227886056973"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="COE-SM-bqe">
             <objects>
@@ -247,6 +324,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9a-9v-Ngi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="728.79999999999995" y="216.34182908545728"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ujx-q4-lPa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cq6-3c-Sz1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nid-k8-yls">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="3qH-j3-ECv" kind="relationship" relationship="rootViewController" id="d0x-TO-KhV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fyt-Sh-Ucp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2417.5" y="215.5"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

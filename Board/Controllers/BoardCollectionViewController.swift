@@ -42,6 +42,7 @@ class BoardCollectionViewController: UICollectionViewController {
         alertViewController.addTextField { textField in
             textField.placeholder = "Player name"
         }
+        alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alertViewController.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] (alertAction) in
             if let textField = alertViewController.textFields?.first {
                 self?.game.addPlayer(player: Player(name: textField.text ?? "Unnamed player"))
@@ -50,6 +51,35 @@ class BoardCollectionViewController: UICollectionViewController {
             }
         }))
         present(alertViewController, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navCtrl = segue.destination as? UINavigationController, let playerViewController = navCtrl.topViewController as? EditPlayerViewController {
+            if let cell = sender as? BoardHeaderCollectionViewCell, let index = collectionView?.indexPath(for: cell), let players = game.players {
+                playerViewController.player = Player(name: players[index.row - 1].name)
+                
+                playerViewController.editPlayerCompletion = {[weak self] resolution in
+                    switch resolution {
+                    case .cancel :
+                        break
+                    case .done:
+                        players[index.row - 1].name = playerViewController.player.name
+                    case .delete:
+                        self?.game.deletePlayer(player: players[index.row - 1])
+                    }
+                    
+                    playerViewController.dismiss(animated: true, completion: {
+                        self?.collectionView?.reloadData()
+                        self?.updateCollectionViewLayout()
+                    })
+                    
+                }
+                
+            } else {
+                playerViewController.player = game.players![0];
+            }
+            
+        }
     }
 }
 
@@ -98,7 +128,7 @@ extension BoardCollectionViewController {
             // Configure the score cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
             
-            if let cell = cell as? BoardCollectionViewCell {
+            if let cell = cell as? ScoreCollectionViewCell {
                 if let playerData = game.players?[indexPath.row - 1] {
                     if let scores = playerData.scores {
                         cell.setScoreValue(score: "\(scores[roundNo - 1])")
@@ -139,6 +169,7 @@ extension BoardCollectionViewController {
             textField.placeholder = "0"
             textField.text = "\(player.scores![index])"
         }
+        alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alertViewController.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak self] (alertAction) in
             if let textField = alertViewController.textFields?.first {
                 let score = Int(textField.text ?? "0") ?? 0
@@ -146,6 +177,7 @@ extension BoardCollectionViewController {
                 self?.collectionView?.reloadData()
             }
         }))
+        
         present(alertViewController, animated: true, completion: nil)
         
     }

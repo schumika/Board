@@ -15,9 +15,10 @@
 		27073FCB20ECE69F008DFD59 /* Sticky.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27073FC920ECE69A008DFD59 /* Sticky.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		27167F1A21513D5100913336 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27167F1921513D5100913336 /* Game.swift */; };
 		27167F1C21513D6700913336 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27167F1B21513D6700913336 /* Player.swift */; };
-		2722F31A214678EF00432B72 /* BoardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2722F319214678EF00432B72 /* BoardCollectionViewCell.swift */; };
+		2722F31A214678EF00432B72 /* ScoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2722F319214678EF00432B72 /* ScoreCollectionViewCell.swift */; };
 		277B7F2621D607AE00D1FD6C /* RoundNumberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B7F2521D607AE00D1FD6C /* RoundNumberCollectionViewCell.swift */; };
 		277B7F2B21D60B3D00D1FD6C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B7F2A21D60B3D00D1FD6C /* Utils.swift */; };
+		277B7F2D21D6197C00D1FD6C /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B7F2C21D6197C00D1FD6C /* EditViewController.swift */; };
 		27ACDB7721D5244900230262 /* BoardHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ACDB7621D5244900230262 /* BoardHeaderCollectionViewCell.swift */; };
 		27AD13BF20EE5F570074511A /* BoardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AD13BE20EE5F570074511A /* BoardCollectionViewController.swift */; };
 		27C13E1F2152282C00E745AE /* GamesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C13E1E2152282C00E745AE /* GamesTableViewController.swift */; };
@@ -65,9 +66,10 @@
 		27073FC420ECE69A008DFD59 /* Sticky.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sticky.xcodeproj; path = ../Sticky/Sticky.xcodeproj; sourceTree = "<group>"; };
 		27167F1921513D5100913336 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		27167F1B21513D6700913336 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		2722F319214678EF00432B72 /* BoardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCollectionViewCell.swift; sourceTree = "<group>"; };
+		2722F319214678EF00432B72 /* ScoreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCollectionViewCell.swift; sourceTree = "<group>"; };
 		277B7F2521D607AE00D1FD6C /* RoundNumberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundNumberCollectionViewCell.swift; sourceTree = "<group>"; };
 		277B7F2A21D60B3D00D1FD6C /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		277B7F2C21D6197C00D1FD6C /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		27ACDB7621D5244900230262 /* BoardHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		27AD13BE20EE5F570074511A /* BoardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCollectionViewController.swift; sourceTree = "<group>"; };
 		27C13E1E2152282C00E745AE /* GamesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesTableViewController.swift; sourceTree = "<group>"; };
@@ -139,7 +141,7 @@
 		277B7F2821D60B0F00D1FD6C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				2722F319214678EF00432B72 /* BoardCollectionViewCell.swift */,
+				2722F319214678EF00432B72 /* ScoreCollectionViewCell.swift */,
 				277B7F2521D607AE00D1FD6C /* RoundNumberCollectionViewCell.swift */,
 				27ACDB7621D5244900230262 /* BoardHeaderCollectionViewCell.swift */,
 				277B7F2A21D60B3D00D1FD6C /* Utils.swift */,
@@ -152,6 +154,7 @@
 			children = (
 				27C13E1E2152282C00E745AE /* GamesTableViewController.swift */,
 				27AD13BE20EE5F570074511A /* BoardCollectionViewController.swift */,
+				277B7F2C21D6197C00D1FD6C /* EditViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -253,7 +256,8 @@
 				277B7F2B21D60B3D00D1FD6C /* Utils.swift in Sources */,
 				27167F1A21513D5100913336 /* Game.swift in Sources */,
 				27AD13BF20EE5F570074511A /* BoardCollectionViewController.swift in Sources */,
-				2722F31A214678EF00432B72 /* BoardCollectionViewCell.swift in Sources */,
+				2722F31A214678EF00432B72 /* ScoreCollectionViewCell.swift in Sources */,
+				277B7F2D21D6197C00D1FD6C /* EditViewController.swift in Sources */,
 				27167F1C21513D6700913336 /* Player.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
