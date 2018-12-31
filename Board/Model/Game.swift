@@ -17,6 +17,19 @@ class Game {
         players = [Player]()
     }
     
+    init?(dictionary: [String : Any]) {
+        guard let name = dictionary["name"] as? String else { return nil }
+        self.name = name
+        if let playersArray = dictionary["players"] as? [[String:Any]] {
+            players = [Player]()
+            for playerDictionary in playersArray {
+                if let player = Player(dictionary: playerDictionary) {
+                    add(player: player, fillScores: false)
+                }
+            }
+        }
+    }
+    
     public func add(player: Player) {
         add(player: player, fillScores: true)
     }
@@ -52,5 +65,21 @@ class Game {
         for player in players {
             player.delete(at: round)
         }
+    }
+}
+
+extension Game {
+    public func toDictionary() -> [String: Any] {
+        var dictionary = [String: Any]()
+        dictionary["name"] = name
+        if let players = players {
+            var playersArray = [[String: Any]]()
+            for player in players {
+                playersArray.append(player.toDictionary())
+            }
+            dictionary["players"] = playersArray
+        }
+        
+        return dictionary
     }
 }
