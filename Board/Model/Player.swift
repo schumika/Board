@@ -34,4 +34,9 @@ class Player {
         guard let scores = scores else { return 0 }
         return scores.reduce(0) { $0 + $1 }
     }
+    
+    public func delete(at index: Int) {
+        guard index < scores?.count ?? 0 else { return }
+        scores?.remove(at: index)
+    }
 }
