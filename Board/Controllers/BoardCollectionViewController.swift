@@ -108,6 +108,11 @@ extension BoardCollectionViewController {
             
             if let cell = cell as? RoundNumberCollectionViewCell {
                 cell.setRoundNumberValue(roundNumber: indexPath.section == 0 ? "+" :  "\(roundNo)")
+                cell.onDelete = {[weak self] in
+                    guard roundNo > 0 else { return }
+                    self?.game.delete(round: roundNo - 1)
+                    self?.collectionView?.reloadData()
+                }
             }
             
             return cell

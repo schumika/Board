@@ -9,7 +9,7 @@
 import UIKit
 
 class GamesTableViewController: UITableViewController, UISplitViewControllerDelegate {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,7 +18,11 @@ class GamesTableViewController: UITableViewController, UISplitViewControllerDele
         }
     }
     
-    var gamesManager = GamesManager()
+    var gamesManager: GamesManager {
+        get {
+            return (UIApplication.shared.delegate as? AppDelegate)!.gamesManager
+        }
+    }
     var games = [Game]()
     
     override func viewWillAppear(_ animated: Bool) {

@@ -11,8 +11,9 @@ import Foundation
 
 class GamesManager {
     
-    init() {
-        games = [GamesManager.dummyGame(), GamesManager.dummyGame2(), GamesManager.dummyGame3()]
+    init() {        
+        games = [Game]()
+        loadGames()
     }
     
     public var games: [Game]
@@ -23,6 +24,28 @@ class GamesManager {
     
     public func delete(at index: Int) {
         games.remove(at: index)
+    }
+}
+
+extension GamesManager {
+    func loadGames() {
+        if let gamesDictArray = UserDefaults.standard.object(forKey: "games") as? [[String: Any]] {
+            games = [Game]()
+            for dict in gamesDictArray {
+                if let game = Game(dictionary: dict) {
+                    games.append(game)
+                }
+            }
+        }
+    }
+    
+    func saveGames() {
+        var gamesDictArray = [[String: Any]]()
+        for game in games {
+            gamesDictArray.append(game.toDictionary())
+        }
+        UserDefaults.standard.set(gamesDictArray, forKey: "games")
+        UserDefaults.standard.synchronize()
     }
 }
 

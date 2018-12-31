@@ -22,6 +22,17 @@ class Player {
         self.scores = scores
     }
     
+    init?(dictionary: [String: Any]) {
+        guard let name = dictionary["name"] as? String else { return nil }
+        self.name = name
+        
+        if let scores = dictionary["scores"] as? [Int] {
+            self.scores = scores
+        } else {
+            self.scores = [Int]()
+        }
+    }
+    
     public func add(score: Int) {
         self.scores?.append(score)
     }
@@ -34,4 +45,23 @@ class Player {
         guard let scores = scores else { return 0 }
         return scores.reduce(0) { $0 + $1 }
     }
+    
+    public func delete(at index: Int) {
+        guard index < scores?.count ?? 0 else { return }
+        scores?.remove(at: index)
+    }
+}
+
+extension Player {
+    public func toDictionary() -> [String: Any] {
+        var playerDictionary = [String: Any]()
+        playerDictionary["name"] = name
+        if let scores = scores {
+            playerDictionary["scores"] = scores
+        }
+        
+        return playerDictionary
+    }
+    
+    
 }

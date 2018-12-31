@@ -106,7 +106,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rKC-sD-Kxw">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rKC-sD-Kxw">
                                             <rect key="frame" x="8" y="8" width="64" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -122,11 +122,11 @@
                                     <constraint firstItem="rKC-sD-Kxw" firstAttribute="leading" secondItem="Cwe-7L-Bss" secondAttribute="leadingMargin" id="YWe-tJ-XIn"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="0.25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -146,12 +146,24 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cs4-Pe-4t8">
+                                            <rect key="frame" x="24.5" y="-3" width="30" height="42"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <state key="normal" title="✘">
+                                                <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="deleteButtonClicked:" destination="OhS-KC-iuP" eventType="touchUpInside" id="XpY-le-axt"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="Cs4-Pe-4t8" firstAttribute="centerX" secondItem="OhS-KC-iuP" secondAttribute="centerX" id="7VH-Ls-LLM"/>
                                     <constraint firstItem="xwv-hl-0sL" firstAttribute="top" secondItem="OhS-KC-iuP" secondAttribute="topMargin" id="DFl-Ze-OtN"/>
                                     <constraint firstItem="xwv-hl-0sL" firstAttribute="leading" secondItem="OhS-KC-iuP" secondAttribute="leadingMargin" id="K8K-RZ-hMY"/>
+                                    <constraint firstItem="Cs4-Pe-4t8" firstAttribute="centerY" secondItem="OhS-KC-iuP" secondAttribute="centerY" id="LqH-kx-cZZ"/>
                                     <constraint firstItem="xwv-hl-0sL" firstAttribute="trailing" secondItem="OhS-KC-iuP" secondAttribute="trailingMargin" id="cJ3-Ke-JPB"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="xwv-hl-0sL" secondAttribute="bottom" id="n9T-dN-3Pf"/>
                                 </constraints>
@@ -164,6 +176,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <outlet property="deleteButton" destination="Cs4-Pe-4t8" id="UbB-n7-sUP"/>
                                     <outlet property="roundNumberLabel" destination="xwv-hl-0sL" id="HuL-KQ-6VV"/>
                                 </connections>
                             </collectionViewCell>
