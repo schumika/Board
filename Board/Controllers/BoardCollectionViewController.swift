@@ -45,7 +45,8 @@ class BoardCollectionViewController: UICollectionViewController {
         alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alertViewController.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] (alertAction) in
             if let textField = alertViewController.textFields?.first {
-                self?.game.add(player: Player(name: textField.text ?? "Unnamed player"))
+                let playerName = (textField.text ?? "").isEmpty ? "Unnamed player" : textField.text!
+                self?.game.add(player: Player(name: playerName))
                 self?.collectionView?.reloadData()
                 self?.updateCollectionViewLayout()
             }
@@ -54,16 +55,16 @@ class BoardCollectionViewController: UICollectionViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navCtrl = segue.destination as? UINavigationController, let playerViewController = navCtrl.topViewController as? EditPlayerViewController {
+        if let navCtrl = segue.destination as? UINavigationController, let playerViewController = navCtrl.topViewController as? EditViewController {
             if let cell = sender as? BoardHeaderCollectionViewCell, let index = collectionView?.indexPath(for: cell), let players = game.players {
-                playerViewController.player = Player(name: players[index.row - 1].name)
+                playerViewController.namedItem = Player(name: players[index.row - 1].name)
                 
-                playerViewController.editPlayerCompletion = {[weak self] resolution in
+                playerViewController.editItemCompletion = {[weak self] resolution in
                     switch resolution {
                     case .cancel :
                         break
                     case .done:
-                        players[index.row - 1].name = playerViewController.player.name
+                        players[index.row - 1].name = playerViewController.namedItem.name
                     case .delete:
                         self?.game.delete(player: players[index.row - 1])
                     }
@@ -76,7 +77,7 @@ class BoardCollectionViewController: UICollectionViewController {
                 }
                 
             } else {
-                playerViewController.player = game.players![0];
+                playerViewController.namedItem = game.players![0];
             }
             
         }

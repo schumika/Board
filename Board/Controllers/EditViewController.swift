@@ -1,5 +1,5 @@
 //
-//  EditPlayerViewController.swift
+//  EditViewController.swift
 //  Board
 //
 //  Created by Anca Julean on 28/12/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditPlayerViewController : UIViewController {
+class EditViewController : UIViewController {
     
     enum EditResolution {
         case cancel
@@ -19,24 +19,24 @@ class EditPlayerViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameTextField.text = player.name
+        nameTextField.text = namedItem.name
     }
     
-    var editPlayerCompletion: ((EditResolution) -> ())?
-    var player: Player!
+    var editItemCompletion: ((EditResolution) -> ())?
+    var namedItem: NamedItem!
     
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBAction func deleteButtonClicked(_ sender: Any) {
-        editPlayerCompletion?(.delete)
+        editItemCompletion?(.delete)
     }
     
     @IBAction func doneClicked(_ sender: Any) {
-        player.name = nameTextField.text ?? ""
-        editPlayerCompletion?(.done)
+        namedItem.name = nameTextField.text ?? ""
+        editItemCompletion?(.done)
     }
     
     @IBAction func cancelClicked(_ sender: Any) {
-        editPlayerCompletion?(.cancel)
+        editItemCompletion?(.cancel)
     }
 }

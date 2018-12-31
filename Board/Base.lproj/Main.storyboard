@@ -16,13 +16,61 @@
         <scene sceneID="4zd-xz-NsS">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="DB1-ay-wYl" customClass="GamesTableViewController" customModule="Board" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="THg-pK-D73">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="THg-pK-D73">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameCellIdentifier" id="BLP-Sr-bZV">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GameCell" id="bjI-zL-5Ed" customClass="GameTableViewCell" customModule="Board" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bjI-zL-5Ed" id="FJw-dJ-Zb3">
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hHa-Ei-TqJ">
+                                            <rect key="frame" x="20" y="0.0" width="301" height="43.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="500" verticalHuggingPriority="251" text="#1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITH-xL-J2x">
+                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="43.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlW-aj-cba">
+                                                    <rect key="frame" x="28" y="0.0" width="0.0" height="43.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                    <state key="normal" title="✍︎">
+                                                        <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="editButtonClicked:" destination="bjI-zL-5Ed" eventType="touchUpInside" id="w2g-iS-d3u"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdr-BO-ZZP">
+                                                    <rect key="frame" x="38" y="0.0" width="263" height="43.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="hHa-Ei-TqJ" firstAttribute="top" secondItem="FJw-dJ-Zb3" secondAttribute="top" id="43Z-rw-aHf"/>
+                                        <constraint firstAttribute="bottom" secondItem="hHa-Ei-TqJ" secondAttribute="bottom" id="Ef9-kb-YIu"/>
+                                        <constraint firstAttribute="trailing" secondItem="hHa-Ei-TqJ" secondAttribute="trailing" constant="20" symbolic="YES" id="Us6-jJ-8qu"/>
+                                        <constraint firstItem="hHa-Ei-TqJ" firstAttribute="leading" secondItem="FJw-dJ-Zb3" secondAttribute="leading" constant="20" symbolic="YES" id="zCn-Px-hso"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="editButton" destination="xlW-aj-cba" id="YIa-aw-8jZ"/>
+                                    <outlet property="gameLabel" destination="Bdr-BO-ZZP" id="qxl-tE-M2p"/>
+                                    <outlet property="roundNoLabel" destination="ITH-xL-J2x" id="aXy-ig-Blb"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameCellIdentifier" id="BLP-Sr-bZV">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BLP-Sr-bZV" id="p0I-if-ENp">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -36,11 +84,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Games" id="jri-qD-650">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="12x-jC-Bhc">
-                            <connections>
-                                <action selector="leftButtonClicked:" destination="DB1-ay-wYl" id="oZJ-XV-wPT"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ICe-mh-dtr">
                             <connections>
                                 <action selector="rightAddButtonClicked:" destination="DB1-ay-wYl" id="Sgf-Vq-qeW"/>
@@ -49,6 +92,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="DtL-OU-3zJ" kind="showDetail" identifier="showGameSegue" id="rKC-st-by3"/>
+                        <segue destination="Cq6-3c-Sz1" kind="presentation" identifier="presentGame" id="fld-HT-hqu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgF-oZ-pLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -249,7 +293,7 @@
         <!--Edit player-->
         <scene sceneID="jjg-6u-nGm">
             <objects>
-                <viewController id="3qH-j3-ECv" customClass="EditPlayerViewController" customModule="Board" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3qH-j3-ECv" customClass="EditViewController" customModule="Board" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lpr-8q-EvY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -358,6 +402,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="fld-HT-hqu"/>
         <segue reference="rKC-st-by3"/>
     </inferredMetricsTieBreakers>
 </document>

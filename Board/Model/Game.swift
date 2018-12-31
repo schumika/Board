@@ -8,7 +8,11 @@
 
 import Foundation
 
-class Game {
+public protocol NamedItem {
+    var name: String { get set }
+}
+
+class Game: NamedItem {
     public var name: String
     public private(set) var players: [Player]?
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Player {
+class Player: NamedItem {
     public var name: String
     public private(set) var scores: [Int]?
     

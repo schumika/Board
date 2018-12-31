@@ -43,8 +43,15 @@ class GamesTableViewController: UITableViewController, UISplitViewControllerDele
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GameCellIdentifier", for: indexPath)
-        cell.textLabel?.text = games[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath)
+        //cell.textLabel?.text = games[indexPath.row].name
+        if let cell = cell as? GameTableViewCell {
+            cell.gameLabel.text = games[indexPath.row].name
+            cell.roundNoLabel.text = "\(indexPath.row + 1)"
+            cell.onEdit = { [weak self] in
+                self?.performSegue(withIdentifier: "presentGame", sender: cell)
+            }
+        }
 
         return cell
     }
@@ -73,6 +80,35 @@ class GamesTableViewController: UITableViewController, UISplitViewControllerDele
                 }
 
             }
+        } else if let navCtrl = segue.destination as? UINavigationController, let gameViewController = navCtrl.topViewController as? EditViewController {
+            if let cell = sender as? GameTableViewCell, let index = tableView?.indexPath(for: cell) {
+                gameViewController.namedItem = Game(name: games[index.row].name)
+                
+                gameViewController.editItemCompletion = {[weak self] resolution in
+                    switch resolution {
+                    case .cancel :
+                        break
+                    case .done:
+                        self?.games[index.row].name = gameViewController.namedItem.name
+                    case .delete:
+                        self?.tableView.beginUpdates()
+                        self?.gamesManager.delete(at: index.row)
+                        // todo: ????
+                        if let games = self?.gamesManager.games {
+                            self?.games = games
+                        } else {
+                            self?.games = [Game]()
+                        }
+                        
+                        self?.tableView.deleteRows(at: [index], with: .automatic)
+                        self?.tableView.endUpdates()
+                    }
+                    
+                    gameViewController.dismiss(animated: true, completion: {
+                        self?.tableView?.reloadData()
+                    })
+                }
+            }
         }
     }
     
@@ -85,26 +121,15 @@ class GamesTableViewController: UITableViewController, UISplitViewControllerDele
         alertViewController.addTextField { textField in
             textField.placeholder = "Game name"
         }
+        alertViewController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alertViewController.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] (alertAction) in
             if let textField = alertViewController.textFields?.first {
-                self?.gamesManager.add(game: Game(name: textField.text ?? "Unnamed game"))
+                let gameName = (textField.text ?? "").isEmpty ? "Unnamed game" : textField.text!
+                self?.gamesManager.add(game: Game(name: gameName))
                 self?.reloadData()
             }
         }))
         present(alertViewController, animated: true, completion: nil)
-    }
-    
-    @IBAction func leftButtonClicked(_ sender: UIBarButtonItem) {
-        // Edit/Done button
-        
-        // todo: ??????
-        if isEditing {
-            isEditing = false
-            sender.title = "Edit"
-        } else {
-            isEditing = true
-            sender.title = "Done"
-        }
     }
     
     // MARK: - UISplitViewControllerDelegate
