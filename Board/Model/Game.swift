@@ -46,4 +46,11 @@ class Game {
             players?.remove(at: index)
         }
     }
+    
+    public func delete(round: Int) {
+        guard let players = players else { return }
+        for player in players {
+            player.delete(at: round)
+        }
+    }
 }
